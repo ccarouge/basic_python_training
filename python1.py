@@ -65,11 +65,12 @@ print("It's %s dollars"%a)
 #%%
 print("It's {} dollars".format(a))
 #%% [markdown]
-# When putting several variables into the same string, it allows you to refer to the `str.format()` arguments with a position:
+# When putting several variables into the same string, it allows you to refer to the `str.format()` arguments by position or name:
 #%%
 a=100.
 b=50
 print("It's {1}% off, it costs {0} dollars".format(a,b))
+print("It's {perc}% off, it costs {cost} dollars".format(perc=b, cost=a))
 #%%
 print("It's {:3.0f} dollars".format(a))
 #%% [markdown]
