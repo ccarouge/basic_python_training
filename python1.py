@@ -24,7 +24,13 @@ a
 #%%
 # Python is case sensitive
 A
+#%%
+# You can add strings:
+b = " Carouge"
+c = a+b
+c
 #%% [markdown]
+# ---
 # ## Object-oriented language
 # 
 # Everything is an object in Python. That means a variable contains more than a value. It may also contain:
@@ -41,6 +47,7 @@ dir(a)
 #%% [markdown]
 # It doesn't tell you if those are methods or simple attributes. There is no information on what the method does. Inline help can help here.
 #%% [markdown]
+# ---
 # ## Print function
 #%% [markdown]
 # Obviously, there is a `print()` function builtin. It can print out the values in all sorts of objects, not just strings.
@@ -72,7 +79,8 @@ b=50
 print("It's {1}% off, it costs {0} dollars".format(a,b))
 print("It's {perc}% off, it costs {cost} dollars".format(perc=b, cost=a))
 #%%
-print("It's {:3.0f} dollars".format(a))
+print("It's {cost:3.0f} dollars".format(cost=a))  # with keyword argument
+print("It's {:3.0f} dollars".format(a))  # with just an argument
 #%% [markdown]
 # As you can see above, it is possible to describe the format of the variable in the string.
 # Here we said we wanted a fixed-point notation, with an overall width of 3 charaters and 0 characters after the decimal point (called the precision). 
@@ -92,6 +100,19 @@ print(c)
 print("{:e}".format(a))
 print("{:.3e}".format(a))
 #%% [markdown]
+#
+# And now the newest way to do that: f-strings.
+#%%
+a = 100.
+b = 50
+print(f"It's {b}% off, it costs {a} dollars")  # You put the name of the variable directly in the string
+print(f"It's {b}% off, it costs {a:3.0f} dollars") # Same formatting options
+#%% [markdown]
+# If you want to learn more but find the Python manual a bit heavy in details:
+# 
+# https://realpython.com/python-f-strings/#python-f-strings-the-pesky-details
+#%% [markdown]
+# ---
 # ## Indexing
 # 
 # Strings are indexable in Python. Indexes start at 0 in Python. It's possible to have negative indexes, thus `-1` refers to the last element.
@@ -125,7 +146,8 @@ print(a[0:len(a)-3]) # You can obviously have expressions to define the indexes
 # 
 # But it's nice as it avoids having a `-1` all the time. For example, to get the 3 first character, you use this slice `:3`. If the last index was including, you would need: `:3-1`. If you want 2 characters from the 2nd character, you do `2:2+2` and not `2:2+2-1`. Etc.
 #%% [markdown]
-# # Loops
+# ---
+# ## Loops
 #%% [markdown]
 # You can loop on any iterable! No just a range of numbers.
 #%%
@@ -151,14 +173,16 @@ for i in range(3,17,2):   # End index is excluded here again! There is some cons
 #%%
 for i in range(5):
     print(i)
+#%% [markdown]
+# ### Nested loop
 #%%
-# Nested loop
 for i in range(2):
     for char in a[:3]:
         print(char)
     print("Index:",i)  # In outer loop but not inner loop
+#%% [markdown]
+# ### Break / continue statements
 #%%
-# Break / continue statements
 for i in range(10):
     if i == len(a):
         break
@@ -166,6 +190,7 @@ i
 #%% [markdown]
 # There is also a `while` construct, which you can discover on your own. It has a similar syntax as the `for` loop construct.
 #%% [markdown]
+# ---
 # ## If constructs
 #%%
 if "l" in a:
@@ -178,6 +203,8 @@ if "Claire" == a:
 if "Claire" != a:
     print("yeah")
 if not "z" in a:
+    print("oh!")
+if "z" not in a:
     print("oh!")
 #%%
 # and / or

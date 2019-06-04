@@ -45,6 +45,9 @@ l[1][-1]
 a = "Claire"
 b = list(a)
 print(b)
+# To keep the string together as 1 element of the list:
+c = [a]
+print(c)
 #%% [markdown]
 # ---
 # # Tuples
@@ -66,7 +69,10 @@ t[0]=3
 #%%
 a = [1,3,4]
 b = tuple(a)
-b
+print(b)
+# Here again if you want to keep the list as an element of the tuple:
+c = (a,)
+print(c)
 #%% [markdown]
 # ---
 # # Copy or not?
@@ -86,6 +92,10 @@ print(l, ll)
 l = [1,2,3]
 print(ll,l)
 #%% [markdown]
+# The easiest way to make a copy of a mutable object is with the `list()` and `dict()` functions (see below for `dict()`).
+# These will only do a shallow copy of the object. It is usually enough.
+# There are ways to make deep copies of mutable objects. That is rarely needed, we'll see it at the end, depending on time.
+#
 # Since it is impossible to change only 1 element of an immutable object, any change made on those isn't reflected to other objects initially pointing to the same memory.
 #%% [markdown]
 # ---
@@ -108,7 +118,7 @@ d["name"]
 # The values associated to each key can be very complicated objects. For example, we could have only "first_point" and "last_point" keys, each pointing to a dictionary with lat and lon as keys:
 #%%
 point0={"lon":-180., "lat":-90.}
-point1=point0.copy()
+point1=dict(point0)
 point1["lon"]=180.
 point1["lat"]=90.
 print(point0, point1)
@@ -116,7 +126,84 @@ print(point0, point1)
 d={'name':"my_grid", "first_point":point0, "last_point":point1, "res":0.5}
 d["first_point"]
 #%% [markdown]
-# If you have several grids you want to keep track of. Each key could have a list of values (or tuples). Or you could create a list of dictionaries. So you have 1 dictionary per grid and you keep them all together in a list (or tuple). The second option might be better as it allows you to create a dictionary for a new grid more easily. Copy one of the dictionary and change only the keys you need for the new grid. Then append to the list.
+# ## Get the keys and values
+# %%
+# Get the keys in a dictionary:
+for k in d.keys():
+    print(k)
+print("End keys \n")
+
+# Get the values:
+for v in d.values():
+    print(v)
+print("End values \n")
+
+# Get the pairs of keys and values:
+for k,v in d.items():
+    print(k,v)
+print("End pairs \n")
+
+# As you can see here, loops in Python can have several loop variables!
+#%% [markdown]
+# ## Add a (key,value) pair
+#%%
+d['projection'] = "cartesian"
+d
+#%% [markdown]
+# If you have several grids you want to keep track of, each key could have a list of values (or tuples). Or you could create a list of dictionaries. So you have 1 dictionary per grid and you keep them all together in a list (or tuple). The second option might be better as it allows you to create a dictionary for a new grid more easily by simply appending its definition dictionary to the list.
+#%% [markdown]
+# ---
+# # Exercises
+# Below are a few exercises or examples for you to go through.
+# 
+# Don't forget to use either the inline help (?var or <tab>) or Google and Stack Overflow.
+# %% [markdown]
+#  ## String formatting with dictionaries
+# We saw earlier that f-strings are the most readable way to format a string.
+# 
+# With dictionaries, `str.format()` can be quite powerful and useful:
+# %%
+# Let's define a dictionary:
+point0=[-180., -90.]
+point1=[180.,90.]
+d={'name':"my_grid", "first_point":point0, "last_point":point1, "res":0.5}
+print(d)
+# Let's print all this information nicely with f-string and then `str.format()`
+print(f"My string {d['name']} has {d['res']} degrees resolution, starts at {d['first_point']}, ends at {d['last_point']}")
+print("My string {name} has {res} degrees resolution, starts at {first_point}, ends at {last_point}".format(**d))
+#%% [markdown]
+# The ** operator allows us to take a dictionary of key-value pairs and unpack it into keyword arguments in a function call.
+# There is also a `*` operator.
+# See this page for details: https://treyhunner.com/2018/10/asterisks-in-python-what-they-are-and-how-to-use-them/
+# This page is using a few things we haven't seen but it's very thorough.
+#%% [markdown]
+# ---
+# ## Split and join strings
+# If reading tabulated data or a filename with fields separated by "_", it's common one might want to split the different fields into separate strings or values.
+# Inversely, you might want to create files that have fields separated by "_". You can use `+` to add the different fields, but it gets long pretty quickly. Python provides a better way.
+#%%
+# Split the following string along the "_" separator. Hint: check the string's methods. What is the type of the result?
+a="tas_day_MRI-ESM1_historical_r1i1p1_18510101-18601231.nc"
+#%%
+# Join together the elements of the following list to form a filename with the same format as above.
+# Again check the string's methods. Be careful how you specify the separator and the strings to join!
+l = ["ta", "day", "ACCESS", "historical","r1i1p1", "18510101", "19001231","nc"]
+#%% [markdown]
+# ---
+# ## Zip function
+# It allows you to zip together 2 iterables. So that the first elements of the 2 original iterables become together the 1st element of the result, etc.
+# 
+# Obviously, it's much easier to see examples.
+#
+#%%
+a="Claire"
+b="Carouge"
+c=list(zip(a,b))
+c
+#%%
+# Given the 2 lists below, create a dictionary where the keys come from the list "keys" and values from "values"
+keys=['name', 'age', 'place']
+values=['John', 32, 'Paris']
 #%% [markdown]
 # ---
 # These are all the concepts we wanted to introduce.
