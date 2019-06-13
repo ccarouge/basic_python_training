@@ -1,0 +1,4 @@
+This is an example text file.
+Let's see what happens with csv-type files
+50, 30, 40
+70, 20, 30
